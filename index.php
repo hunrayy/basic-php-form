@@ -1,14 +1,33 @@
 <?php
-    header("Access-Control-Allow-origin: *");
-    header("Access-Control-Allow-Methods: *");
-    header("Access-control-Allow-Headers: *");
+    // header("Access-Control-Allow-origin: *");
+    // header("Access-Control-Allow-Methods: *");
+    // header("Access-control-Allow-Headers: *");
     // header("Content-type: application/json");
     // print_r($_POST);
 
-    echo($_POST["username"]);
-    echo($_POST["email"]);
-    echo($_POST["password"]);
-
+    if($_POST["username"] == null || $_POST["email"] == null || $_POST["password"] == null){
+        // return null;
+        echo("INVALID INPUT");
+    }else{
+        // echo("not null");
+        require("connection/config.php");
+        $username = $_POST["username"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $insert = "INSERT INTO `register` (`id`, `username`, `email`, `password`, `registered_at`) VALUES (
+            '', '$username', '$email', 'SHA($password)', NOW())";
+            $result = mysqli_query($conn, $insert);
+        if($result){
+            echo("ACCOUNT SUCCESSFULLY CREATED");
+        }else{
+            echo("ACCOUNT COULD NOT BE CREATED");
+        }
+        
+    }
+    
+    // echo($_POST["username"]);
+    // echo($_POST["email"]);
+    // echo($_POST["password"]);
 
 
 
